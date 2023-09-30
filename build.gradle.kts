@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.2"
-    id("io.spring.dependency-management") version "1.1.2"
+    id("org.springframework.boot") version "3.1.4"
+    id("io.spring.dependency-management") version "1.1.3"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
 }
@@ -31,10 +31,13 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("org.mariadb:r2dbc-mariadb:1.1.4")
+
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.withType<KotlinCompile> {
@@ -46,4 +49,12 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+springBoot {
+    mainClass = "com.webflux.wt"
 }

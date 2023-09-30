@@ -1,3 +1,8 @@
 spring:
   r2dbc:
-    url: r2dbc::127.0.0.1
+    url: ${R2DBC_URL:r2dbc::127.0.0.1}
+    username: ${R2DBC_ID}
+    password: ${R2DBC_PW}
+
+logging.level.org:
+  springframework.r2dbc.core.DefaultDatabaseClient: debug
