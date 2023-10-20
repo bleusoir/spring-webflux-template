@@ -1,7 +1,7 @@
 spring:
   r2dbc:
-    url: ${R2DBC_URL:r2dbc::127.0.0.1}
-    username: ${R2DBC_ID}
+    url: ${R2DBC_URL:r2dbc:mariadb://localhost:3306/template_db}
+    username: ${R2DBC_ID:root}
     password: ${R2DBC_PW}
 
 logging.level.org:

@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono
 @Repository
 interface MemberRepository : R2dbcRepository<Member, Long> {
 
-    fun findTopByName(memberName: String): Mono<Member>?
+    fun findTopByName(memberName: String): Mono<Member>
 }
