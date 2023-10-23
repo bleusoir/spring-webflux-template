@@ -13,20 +13,23 @@ data class MemberDto(
 ) {
     data class Res(
         val id: Long?,
-        val name: String
+        val age: Int,
+        val name: String,
     ) {
         companion object {
             fun of(member: Member): Res {
                 return Res(
                     id = member.id,
-                    name = member.name
+                    name = member.name,
+                    age = member.age
                 )
             }
         }
     }
 
     data class Req(
-        @get:Size(min = 3, max = 20) val name: String,
+        @get:Size(min = 3, max = 20)
+        val name: String,
         @get:DecimalMin("6", message = "age can not be lower then 6")
         val age: Int
     )

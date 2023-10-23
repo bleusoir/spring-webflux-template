@@ -11,8 +11,6 @@ import reactor.core.publisher.Mono
 @Suppress("unused")
 val log = KotlinLogging.logger { }
 
-private const val httpTimeoutMillis = 3000L
-
 @RestController
 class MemberController(
     private val memberService: MemberService,
@@ -31,7 +29,5 @@ class MemberController(
     @PostMapping("/members")
     fun saveMember(@Valid @RequestBody request: MemberDto.Req): Mono<MemberDto.Res> {
         return memberService.saveMember(request)
-            .doOnRequest { log.info { "request :: $request" } }
-            .doOnSuccess { log.info { "response :: $it" } }
     }
 }
