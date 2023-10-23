@@ -3,6 +3,10 @@ spring:
     url: ${R2DBC_URL:r2dbc:mariadb://localhost:3306/template_db}
     username: ${R2DBC_ID:root}
     password: ${R2DBC_PW}
+  sql:
+    init:
+      mode: never
 
-logging.level.org:
-  springframework.r2dbc.core.DefaultDatabaseClient: debug
+logging.level:
+  org.springframework.r2dbc.core.DefaultDatabaseClient: debug
+  org.springframework.web.server.adapter.HttpWebHandlerAdapter: debug

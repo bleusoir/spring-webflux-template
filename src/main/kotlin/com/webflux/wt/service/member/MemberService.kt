@@ -1,5 +1,6 @@
 package com.webflux.wt.service.member
 
+import com.webflux.wt.domain.member.Member
 import com.webflux.wt.domain.member.MemberRepository
 import com.webflux.wt.dto.member.MemberDto
 import mu.KotlinLogging
@@ -17,10 +18,10 @@ val log = KotlinLogging.logger { }
 @Transactional(rollbackFor = [Exception::class], readOnly = true)
 class MemberService(private val memberRepo: MemberRepository) {
 
-    @Transactional(rollbackFor = [Exception::class], readOnly = true)
     fun findMemberByName(name: String): Mono<MemberDto.Res> {
 
-        return memberRepo.findTopByName(name).map(MemberDto.Res::of)
+        return memberRepo.findTopByName(name)
+            .map(MemberDto.Res::of)
             .switchIfEmpty(
                 Mono.error(
                     ResponseStatusException(
@@ -31,9 +32,14 @@ class MemberService(private val memberRepo: MemberRepository) {
             )
     }
 
-    @Transactional(rollbackFor = [Exception::class], readOnly = true)
     fun findMembers(): Flux<MemberDto.Res> {
         return memberRepo.findAll().map(MemberDto.Res::of)
             .switchIfEmpty(Flux.error(ResponseStatusException(HttpStatusCode.valueOf(404), "NOT FOUND MEMBERS")))
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    fun saveMember(request: MemberDto.Req): Mono<MemberDto.Res> {
+        val newMember = Member(request.name, request.age)
+        return memberRepo.save(newMember).map(MemberDto.Res::of)
     }
 }
