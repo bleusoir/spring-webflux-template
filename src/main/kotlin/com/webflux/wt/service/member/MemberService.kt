@@ -33,4 +33,8 @@ class MemberService(private val memberRepo: MemberRepository) {
         val newMember = Member(request.name, request.age)
         return memberRepo.save(newMember).map(MemberDto.Res::of)
     }
+
+    fun updateMember(request: MemberDto.Req): Mono<MemberDto.Res> {
+        TODO("Not yet implemented")
+    }
 }
