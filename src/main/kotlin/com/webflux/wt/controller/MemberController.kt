@@ -35,8 +35,8 @@ class MemberController(
     @PutMapping("/{memberId}")
     fun updateMemberById(
         @Valid @RequestBody request: MemberDto.Req,
-        @PathVariable memberId: String
+        @PathVariable memberId: Long
     ): Mono<MemberDto.Res> {
-        return memberService.updateMember(request)
+        return memberService.updateMember(memberId, request)
     }
 }

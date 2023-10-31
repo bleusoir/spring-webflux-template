@@ -4,6 +4,7 @@ import com.webflux.wt.domain.member.Member
 import com.webflux.wt.domain.member.MemberRepository
 import com.webflux.wt.dto.member.MemberDto
 import mu.KotlinLogging
+import org.springframework.http.HttpStatus.BAD_REQUEST
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -34,7 +35,11 @@ class MemberService(private val memberRepo: MemberRepository) {
         return memberRepo.save(newMember).map(MemberDto.Res::of)
     }
 
-    fun updateMember(request: MemberDto.Req): Mono<MemberDto.Res> {
-        TODO("Not yet implemented")
+    @Transactional(rollbackFor = [Exception::class])
+    fun updateMember(memberId: Long, request: MemberDto.Req): Mono<MemberDto.Res> {
+        return memberRepo.findById(memberId)
+            .flatMap { m -> memberRepo.save(Member(id = m.id, name = request.name, age = request.age)) }
+            .map(MemberDto.Res::of)
+            .switchIfEmpty(Mono.error(ResponseStatusException(BAD_REQUEST, "BAD MEMBER ID :: $memberId")))
     }
 }
