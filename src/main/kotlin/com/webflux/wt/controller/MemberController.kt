@@ -39,4 +39,7 @@ class MemberController(
     ): Mono<MemberDto.Res> {
         return memberService.updateMember(memberId, request)
     }
+
+    @DeleteMapping("/{memberId}")
+    fun removeMemberById(@PathVariable memberId: Long) = memberService.removeMember(memberId)
 }

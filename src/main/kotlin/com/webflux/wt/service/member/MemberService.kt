@@ -42,4 +42,11 @@ class MemberService(private val memberRepo: MemberRepository) {
             .map(MemberDto.Res::of)
             .switchIfEmpty(Mono.error(ResponseStatusException(BAD_REQUEST, "BAD MEMBER ID :: $memberId")))
     }
+
+    @Transactional(rollbackFor = [Exception::class])
+    fun removeMember(memberId: Long): Mono<Void> {
+        return memberRepo.findById(memberId)
+            .switchIfEmpty(Mono.error(ResponseStatusException(NOT_FOUND, "NOT FOUND MEMBER ID :: $memberId")))
+            .flatMap { memberRepo.deleteById(it.id!!) }
+    }
 }
