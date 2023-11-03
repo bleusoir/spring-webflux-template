@@ -59,12 +59,12 @@ To run this project, you will need to add the following environment variables to
 #### Get member by name
 
 ```http
-  GET /members/${memberName}
+  GET /members/:memberName
 ```
 
-| Pathvariables | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `memberName`      | `String` | **Required**. Name of member |
+| Path Variables | Type     | Description                  |
+|:---------------|:---------|:-----------------------------|
+| `memberName`   | `String` | **Required**. Name of member |
 
 #### Save member
 
@@ -72,10 +72,33 @@ To run this project, you will need to add the following environment variables to
   POST /members
 ```
 
-| Body | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `name`      | `String` | **Required**. Name of member |
-| `age`      | `Int` | **Required**. Age of member |
+|  Body  |   Type   |         Description          |
+|:------:|:--------:|:----------------------------:|
+| `name` | `String` | **Required**. Name of member |
+| `age`  |  `Int`   | **Required**. Age of member  |
+
+#### Update member by id
+
+```http
+  PUT /members/:memberId
+```
+| Path Variables | Type   | Description                |
+|:--------------:|:-------|:---------------------------|
+|   `memberId`   | `Long` | **Required**. Id of member |
+
+|  Body  |   Type   |         Description          |
+|:------:|:--------:|:----------------------------:|
+| `name` | `String` | **Required**. Name of member |
+| `age`  |  `Int`   | **Required**. Age of member  |
+
+#### Remove member by id
+
+```http
+  DELETE /members/:memberId
+```
+| Path Variables | Type   | Description                |
+|:--------------:|:-------|:---------------------------|
+|   `memberId`   | `Long` | **Required**. Id of member |
 
 ## License
 
