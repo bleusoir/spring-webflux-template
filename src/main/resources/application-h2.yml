@@ -1,0 +1,7 @@
+spring:
+  sql:
+    init:
+      schema-locations: classpath*:db/h2/schema.sql
+  h2:
+    console:
+      enabled: on

@@ -34,6 +34,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.mariadb:r2dbc-mariadb:1.1.4")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+    implementation("io.r2dbc:r2dbc-h2")
 
     implementation(kotlin("stdlib-jdk8"))
 
